@@ -10,14 +10,11 @@ public class EnemyEvent : MonoBehaviour
 
     void Start()
     {
-        target = gameObject.FindGameObjectWithTag("Player ship").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     void Update()
     {
-        if(vector2.Distance(transform.position, target.position) > 3)
-        {
-            transform.position = vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime)
-        }
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
     }
 }
