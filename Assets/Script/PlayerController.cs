@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
 
     private float elapsedTime = 0;
 
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0))

@@ -9,7 +9,7 @@ public class WaveSpawner : MonoBehaviour
     private Wave currentWave;
  
     [SerializeField]
-    private Transform[] spawnpoints;
+    private Collider2D[] spawnpoints;
  
     private float timeBtwnSpawns;
     private int i = 0;
@@ -41,12 +41,18 @@ public class WaveSpawner : MonoBehaviour
  
     private void SpawnWave()
     {
+        
         for (int i = 0; i < currentWave.NumberToSpawn; i++)
         {
-            int num = Random.Range(0, currentWave.EnemiesInWave.Length);
-            int num2 = Random.Range(0, spawnpoints.Length);
+            int enemyType = Random.Range(0, currentWave.EnemiesInWave.Length);
+            int areaID = Random.Range(0, spawnpoints.Length);
+            Bounds bounds = spawnpoints[areaID].bounds;
+            Vector2 position = new Vector2(
+                Random.Range(bounds.min.x, bounds.max.x), 
+                Random.Range(bounds.min.y, bounds.max.y)
+            );
  
-            Instantiate(currentWave.EnemiesInWave[num], spawnpoints[num2].position, spawnpoints[num2].rotation);
+            Instantiate(currentWave.EnemiesInWave[enemyType], position, spawnpoints[areaID].transform.rotation);
         }
     }
  
@@ -62,4 +68,5 @@ public class WaveSpawner : MonoBehaviour
             stopSpawning = true;
         }
     }
+    
 }
