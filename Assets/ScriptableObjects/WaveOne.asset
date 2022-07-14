@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f7223ef533d17429a03344861e3856, type: 3}
   m_Name: WaveOne
   m_EditorClassIdentifier: 
-  <EnemiesInWave>k__BackingField:
-  - {fileID: 872510852417268202, guid: 1940f6c6923805645b63bc39d81d8312, type: 3}
-  <TimeBeforeThisWave>k__BackingField: 2
-  <NumberToSpawn>k__BackingField: 100
+  <EnemiesInWave>k__BackingField: []
+  <TimeBeforeThisWave>k__BackingField: 0
+  <NumberToSpawn>k__BackingField: 0
