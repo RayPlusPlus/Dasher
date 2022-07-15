@@ -8,7 +8,8 @@ public class PieController : MonoBehaviour
     {
         if (col.gameObject.tag.Equals("Enemy"))
         {
-            Destroy(col.gameObject);
+            //Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
         }
     }
 }

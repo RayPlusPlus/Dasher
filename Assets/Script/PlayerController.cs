@@ -6,21 +6,30 @@ public class PlayerController : MonoBehaviour
     public Transform pies;
     public float rotationSpeed = -100;
     public float minMovementTime = 1;
+    public float maxMovementTime = 2;
     public float movementSpeed = 1;
 
     private float elapsedTime = 0;
+    private float heldDownTime = 0;
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            Debug.Log("Pressed primary button.");
-            elapsedTime = minMovementTime;
+            heldDownTime += Time.deltaTime;
+            //elapsedTime = minMovementTime;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            elapsedTime = Mathf.Max(heldDownTime, minMovementTime);
+            elapsedTime = Mathf.Min(maxMovementTime, elapsedTime);
+            heldDownTime = 0;
         }
 
         if (elapsedTime > 0)
         {
-            Move();
+            Move(elapsedTime);
             elapsedTime -= Time.deltaTime;
         }
         else
@@ -30,10 +39,11 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void Move()
+    void Move(float speedMultiplier)
     {
         pies.gameObject.SetActive(false);
-        transform.Translate(pies.up * Time.deltaTime * movementSpeed, Space.World);
+        float speed = movementSpeed * speedMultiplier;
+        transform.Translate(pies.up * Time.deltaTime * speed, Space.World);
     }
 
     void Rotate()

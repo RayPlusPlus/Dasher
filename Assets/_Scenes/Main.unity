@@ -123,58 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &109271395
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 109271397}
-  - component: {fileID: 109271398}
-  m_Layer: 0
-  m_Name: ObjectPooling
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &109271397
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109271395}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.0045699, y: 0.79023033, z: 1.8681839}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &109271398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 109271395}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f19ae537dded2f418aa29030cfbc82d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsToPool:
-  - objectToPool: {fileID: 0}
-    amountToPool: 0
-    shouldExpand: 0
-  - objectToPool: {fileID: 872510852417268202, guid: 1940f6c6923805645b63bc39d81d8312, type: 3}
-    amountToPool: 200
-    shouldExpand: 0
-  pooledObjects: []
 --- !u!1 &153444723
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +181,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 30, y: 2.5}
   m_EdgeRadius: 0
+--- !u!1 &350537700
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 350537701}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &350537701
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 350537700}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,8 +385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pies: {fileID: 989829588}
   rotationSpeed: -150
-  minMovementTime: 1
-  movementSpeed: 3
+  minMovementTime: 0.5
+  maxMovementTime: 1
+  movementSpeed: 10
 --- !u!4 &706827803
 Transform:
   m_ObjectHideFlags: 0
@@ -587,16 +567,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1066225006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9229144632189b6428f6d83405a1002d, type: 3}
+  m_Script: {fileID: 11500000, guid: b2b080c55fae2db4d8a2918e1b8d97b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - {fileID: 11400000, guid: b0141a39babf11d419e681a28abbf172, type: 2}
-  spawnpoints:
+  numOfEnemy: 50
+  maxEnemySpawn: 100
+  timePassed: 1.5
+  enemy: {fileID: 872510852417268207, guid: 1940f6c6923805645b63bc39d81d8312, type: 3}
+  spawnPoints:
   - {fileID: 153444725}
   - {fileID: 1253433897}
-  - {fileID: 1385858346}
   - {fileID: 543899306}
+  - {fileID: 1385858346}
+  enemyParent: {fileID: 350537700}
 --- !u!1 &1253433895
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385858344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.95, y: 0, z: 0}
+  m_LocalPosition: {x: 13.72, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -725,7 +708,7 @@ GameObject:
   - component: {fileID: 1428629165}
   m_Layer: 0
   m_Name: Player ship
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -812,7 +795,7 @@ GameObject:
   - component: {fileID: 1638765594}
   m_Layer: 0
   m_Name: PieSlice
-  m_TagString: PieSlice
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
