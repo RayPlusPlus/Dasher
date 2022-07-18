@@ -12,27 +12,37 @@ public class EnemySpawner : MonoBehaviour
     public GameObject enemyParent;
 
     private List<Enemy> spawnedEnemy;
+    private GameObject player;
     private float elapsedTime = 0;
 
-    void Start()
+    public void EnemyPool()
     {
         spawnedEnemy = new List<Enemy>();
         for (int i=0; i< maxEnemySpawn; i++)
         {
             Enemy e=Instantiate(enemy);
+            e.SetTarget(player);
             e.transform.SetParent(enemyParent.transform);
             e.gameObject.SetActive(false);
             spawnedEnemy.Add(e);
         }
     }
 
+    public void SetPlayer(PlayerController playerController)
+    {
+        player = playerController.gameObject;
+    }
+
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        if(elapsedTime >= timePassed)
+        if(spawnedEnemy != null)
         {
-            ReleaseEnemies(numOfEnemy);
-            elapsedTime = 0;
+            elapsedTime += Time.deltaTime;
+            if(elapsedTime >= timePassed)
+            {
+                ReleaseEnemies(numOfEnemy);
+                elapsedTime = 0;
+            }
         }
     }
 

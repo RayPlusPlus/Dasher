@@ -8,9 +8,9 @@ public class Enemy : MonoBehaviour
 
     private Transform target;
 
-    void Start()
+    public void SetTarget(GameObject player)
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = player.transform;
     }
 
     void Update()

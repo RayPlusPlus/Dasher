@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public Transform ship;
     public GameObject attackCollider;
     public GameObject stillCollider;
+    public GameObject buttCollider;
     public Collider2D playerWalls;
     public float rotationSpeed = -100;
     public float minMovementTime = 1;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             attackCollider.SetActive(false);
+            buttCollider.SetActive(false);
             stillCollider.SetActive(true);
         }
     }
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
     void Move(float speedMultiplier)
     {
         attackCollider.SetActive(true);
+        buttCollider.SetActive(true);
         stillCollider.SetActive(false);
         pies.gameObject.SetActive(false);
         float speed = movementSpeed * speedMultiplier;
