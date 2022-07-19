@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject attackCollider;
     public GameObject stillCollider;
     public GameObject buttCollider;
+    public SpriteMask mask;
     public Collider2D playerWalls;
     public float rotationSpeed = -100;
     public float minMovementTime = 1;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public float movementSpeed = 1;
 
     private float elapsedTime = 0;
+    private float normalizedHeld = 0;
     private float heldDownTime = 0;
 
 
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             heldDownTime += Time.deltaTime;
+            normalizedHeld = Normalize(heldDownTime, maxMovementTime);
+            mask.alphaCutoff = 1 - normalizedHeld;
             //elapsedTime = minMovementTime;
         }
         else
@@ -38,6 +42,7 @@ public class PlayerController : MonoBehaviour
             elapsedTime = Mathf.Max(heldDownTime, minMovementTime);
             elapsedTime = Mathf.Min(maxMovementTime, elapsedTime);
             heldDownTime = 0;
+            mask.alphaCutoff = 1;
         }
 
         if (elapsedTime > 0)
@@ -53,13 +58,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    float Normalize(float value, float maxValue)
+    {
+        return value / maxValue;
+    }
+
 
     void Move(float speedMultiplier)
     {
         attackCollider.SetActive(true);
         buttCollider.SetActive(true);
         stillCollider.SetActive(false);
-        pies.gameObject.SetActive(false);
+        //pies.gameObject.SetActive(false);
         float speed = movementSpeed * speedMultiplier;
         transform.Translate(pies.up * Time.deltaTime * speed, Space.World);
         Bounds bounds = playerWalls.bounds;
