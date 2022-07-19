@@ -16,6 +16,8 @@ public class Manager : Singleton<Manager>
     private float score;
     private float scoreAmountPS;
     private float highSCore;
+    private float pastScore;
+    public int numOfEnemy;
     private bool needToSave;
 
     void Start()
@@ -24,7 +26,7 @@ public class Manager : Singleton<Manager>
         OverBG.alpha = 0;
         needToSave = true;
         highSCore = GetScore();
-        highsScoreText.text = Mathf.RoundToInt(highSCore).ToString();
+        highsScoreText.text = "High Score: " + Mathf.RoundToInt(highSCore).ToString();
         enemySpawner.SetPlayer(player);
         enemySpawner.EnemyPool();
         score = 0;
@@ -36,8 +38,13 @@ public class Manager : Singleton<Manager>
         if (player != null)
         {
             score += scoreAmountPS * Time.deltaTime;
-            print(score);
-            scoreText.text = Mathf.RoundToInt(score).ToString();
+            pastScore = score + 1000;
+            scoreText.text = "Score: " + Mathf.RoundToInt(score).ToString();
+
+            if(score == pastScore)
+            {
+                numOfEnemy += 10;
+            }
         }
         else
         {
@@ -75,6 +82,7 @@ public class Manager : Singleton<Manager>
 
     public void PlayAgain()
     {
+
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
     }
