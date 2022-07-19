@@ -38,13 +38,7 @@ public class Manager : Singleton<Manager>
         if (player != null)
         {
             score += scoreAmountPS * Time.deltaTime;
-            pastScore = score + 1000;
             scoreText.text = "Score: " + Mathf.RoundToInt(score).ToString();
-
-            if(score == pastScore)
-            {
-                numOfEnemy += 10;
-            }
         }
         else
         {
