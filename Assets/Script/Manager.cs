@@ -22,7 +22,7 @@ public class Manager : Singleton<Manager>
 
     void Start()
     {
-        OverBG.gameObject.SetActive(true);
+        OverBG.gameObject.SetActive(false);
         OverBG.alpha = 0;
         needToSave = true;
         highSCore = GetScore();
@@ -64,6 +64,7 @@ public class Manager : Singleton<Manager>
     IEnumerator ShowGameOver()
     {
         yield return new WaitForSeconds(timeBeforeFade);
+        OverBG.gameObject.SetActive(true);
         float alpha = 0;
         while (alpha < 1)
         {
