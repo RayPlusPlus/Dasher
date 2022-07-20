@@ -5,19 +5,29 @@ using UnityEngine.UI;
 
 public class ProgressDifficulty : MonoBehaviour
 {
+    public EnemySpawner enemySpawner;
+    public Manager manager;
     public Slider slider;
-    float progress = 0;
     float timeCollector = 0;
-    float timeDiminisher = 10;
+    float timeDiminisher = 100;
+    bool upEnemySpeed = true;
 
     void Update()
     {
-        if(slider.value == 1)
+        if(manager.score <= 5000)
         {
-            timeCollector = 0;
+            if(slider.value == 1)
+            {
+                enemySpawner.numOfEnemy += 10;
+                timeCollector = 0;
+                upEnemySpeed = !upEnemySpeed;
+                if(upEnemySpeed)
+                {
+                    enemySpawner.enemySpeed *= 1.5f;
+                }
+            }
+            timeCollector += Time.deltaTime / timeDiminisher;
+            slider.value = timeCollector;
         }
-        timeCollector += Time.deltaTime / timeDiminisher;
-        progress = timeCollector;
-        slider.value = progress;
     }
 }

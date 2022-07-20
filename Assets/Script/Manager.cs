@@ -13,7 +13,7 @@ public class Manager : Singleton<Manager>
     public CanvasGroup OverBG;
     public float fadeSpeed = 1;
     public float timeBeforeFade;
-    private float score;
+    public float score;
     private float scoreAmountPS;
     private float highSCore;
     private float pastScore;
@@ -39,6 +39,7 @@ public class Manager : Singleton<Manager>
         {
             score += scoreAmountPS * Time.deltaTime;
             scoreText.text = "Score: " + Mathf.RoundToInt(score).ToString();
+
         }
         else
         {

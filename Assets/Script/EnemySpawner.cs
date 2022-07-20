@@ -6,14 +6,14 @@ public class EnemySpawner : MonoBehaviour
 {
     public int numOfEnemy = 25;
     public float maxEnemySpawn;
-    public float timePassed = 1.5f;
+    public float timePassed = 15;
+    public float enemySpeed = 1;
+    private float elapsedTime = 0;
     public Enemy enemy;
     public Collider2D[] spawnPoints;
     public GameObject enemyParent;
-
     private List<Enemy> spawnedEnemy;
     private GameObject player;
-    private float elapsedTime = 0;
 
     public void EnemyPool()
     {
@@ -26,6 +26,7 @@ public class EnemySpawner : MonoBehaviour
             e.gameObject.SetActive(false);
             spawnedEnemy.Add(e);
         }
+        elapsedTime = timePassed - 3;
     }
 
     public void SetPlayer(PlayerController playerController)
@@ -55,6 +56,7 @@ public class EnemySpawner : MonoBehaviour
             {
                 spawnedEnemy[i].transform.position = GetRandomPosition();
                 spawnedEnemy[i].gameObject.SetActive(true);
+                spawnedEnemy[i].speed = enemySpeed;
                 foundEnemies += 1;
             }
             if (foundEnemies>=enemyCount)
